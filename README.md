@@ -1,73 +1,172 @@
-# React + TypeScript + Vite
+# 🔤 Braille Character Quiz Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive web-based game for learning and practicing Braille characters. Test your knowledge of Braille letters, numbers, and special symbols through an engaging quiz format.
 
-Currently, two official plugins are available:
+![Braille Quiz Game](https://img.shields.io/badge/React-18+-blue.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue.svg)
+![RxJS](https://img.shields.io/badge/RxJS-7+-purple.svg)
+![Vite](https://img.shields.io/badge/Vite-5+-green.svg)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+### 🎯 Interactive Learning
+- **Lowercase Letters**: Practice basic Braille alphabet (a-z)
+- **Capital Letters**: Learn capital letter notation with capital sign (⠠)
+- **Numbers**: Master numeric Braille with number sign (⠼)
+- **Visual Braille Display**: Interactive dot patterns that clearly show active/inactive dots
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎮 Game Mechanics
+- **Timed Challenges**: 60-second quiz sessions
+- **Multiple Choice**: Four options per question
+- **Real-time Feedback**: Instant correct/incorrect responses
+- **Scoring System**: 10 points per correct answer
+- **Streak Tracking**: Monitor consecutive correct answers
+- **Statistics**: Track your progress with detailed stats
 
-## Expanding the ESLint configuration
+### 🎨 User Experience
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Modern UI**: Clean, accessible interface with smooth animations
+- **Visual Feedback**: Color-coded responses and progress indicators
+- **Educational Context**: Questions clearly indicate letter type (lowercase/capital/number)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/pjrus/braille-quiz-game.git
+   cd braille-quiz-game
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+### Building for Production
+
+```bash
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The built files will be in the `dist` folder.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎲 How to Play
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Start the Game**: Click "Start Game" to begin a 60-second session
+2. **Read the Pattern**: Observe the Braille dot pattern displayed
+3. **Identify the Character**: 
+   - Single patterns = lowercase letters
+   - Capital sign (⠠) + pattern = capital letters
+   - Number sign (⠼) + pattern = numbers
+4. **Select Answer**: Choose from four multiple-choice options
+5. **Build Streaks**: Get consecutive answers right for higher scores
+6. **Track Progress**: Monitor your statistics over multiple games
+
+## 🏗️ Technical Architecture
+
+### Built With
+- **React 18+** - Modern React with hooks and functional components
+- **TypeScript** - Type-safe development
+- **RxJS** - Reactive programming for game state management
+- **Vite** - Fast build tool and dev server
+- **CSS3** - Custom styling with responsive design
+
+### Key Components
+
 ```
+src/
+├── components/
+│   ├── BraillePattern.tsx      # Individual Braille dot display
+│   ├── BrailleSequence.tsx     # Multiple pattern display
+│   └── GameScreen.tsx          # Main game interface
+├── services/
+│   └── BrailleGameService.ts   # Game logic with RxJS
+├── data/
+│   └── brailleData.ts         # Braille character definitions
+└── types/
+    └── braille.ts             # TypeScript interfaces
+```
+
+### State Management
+- **RxJS Observables** for reactive state updates
+- **BehaviorSubjects** for game state, stats, and timer
+- **Local Storage** for persistent statistics
+
+## 🎯 Educational Value
+
+This game teaches authentic Braille notation:
+
+- **Grade 1 Braille**: Basic letter and number patterns
+- **Special Signs**: Proper use of capital (⠠) and number (⠼) indicators
+- **Pattern Recognition**: Visual-spatial learning of dot arrangements
+- **Muscle Memory**: Repeated practice builds familiarity
+
+## 🤝 Contributing
+
+Contributions are welcome! Here are some ways to help:
+
+1. **Report Bugs**: Open an issue with bug details
+2. **Feature Requests**: Suggest new educational features
+3. **Code Contributions**: Fork, develop, and submit pull requests
+4. **Documentation**: Help improve setup and usage docs
+
+### Development Setup
+
+```bash
+# Fork and clone your fork
+git clone https://github.com/YOUR_USERNAME/braille-quiz-game.git
+cd braille-quiz-game
+
+# Install dependencies
+npm install
+
+# Create a feature branch
+git checkout -b feature/your-feature-name
+
+# Make changes and test
+npm run dev
+
+# Run linting
+npm run lint
+
+# Build to ensure no errors
+npm run build
+
+# Commit and push
+git add .
+git commit -m "Add your feature"
+git push origin feature/your-feature-name
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Braille Standards**: Based on Unified English Braille (UEB) conventions
+- **Accessibility Community**: Inspired by the need for Braille education tools
+- **React Community**: Built with modern React patterns and best practices
+
+## 📞 Contact
+
+- **GitHub**: [@pjrus](https://github.com/pjrus)
+- **Issues**: [Project Issues](https://github.com/pjrus/braille-quiz-game/issues)
+
+---
+
+Made with ❤️ for accessibility education and Braille literacy
