@@ -1,0 +1,107 @@
+.braille-pattern {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.braille-grid {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.braille-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.braille-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  border: 2px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+.braille-dot--active {
+  background-color: #007bff;
+  border-color: #0056b3;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+.braille-unicode {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #495057;
+  text-align: center;
+}
+
+/* Size variations */
+.braille-pattern--small .braille-dot {
+  width: 12px;
+  height: 12px;
+}
+
+.braille-pattern--small .braille-grid {
+  gap: 0.3rem;
+  padding: 0.5rem;
+}
+
+.braille-pattern--small .braille-column {
+  gap: 0.3rem;
+}
+
+.braille-pattern--small .braille-unicode {
+  font-size: 1.2rem;
+}
+
+.braille-pattern--medium .braille-dot {
+  width: 20px;
+  height: 20px;
+}
+
+.braille-pattern--large .braille-dot {
+  width: 32px;
+  height: 32px;
+}
+
+.braille-pattern--large .braille-grid {
+  gap: 0.8rem;
+  padding: 1.5rem;
+}
+
+.braille-pattern--large .braille-column {
+  gap: 0.8rem;
+}
+
+.braille-pattern--large .braille-unicode {
+  font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  .braille-pattern--medium .braille-dot {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .braille-pattern--large .braille-dot {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .braille-grid {
+    gap: 0.4rem;
+    padding: 0.8rem;
+  }
+  
+  .braille-column {
+    gap: 0.4rem;
+  }
+}

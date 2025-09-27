@@ -1,0 +1,86 @@
+.braille-sequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.braille-sequence-patterns {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.braille-sequence-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.braille-sequence-label {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+  font-weight: 500;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.braille-sequence-unicode {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #495057;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+}
+
+/* Size variations */
+.braille-sequence--small .braille-sequence-patterns {
+  gap: 0.5rem;
+}
+
+.braille-sequence--small .braille-sequence-label {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.braille-sequence--small .braille-sequence-unicode {
+  font-size: 1.5rem;
+}
+
+.braille-sequence--medium .braille-sequence-patterns {
+  gap: 1rem;
+}
+
+.braille-sequence--large .braille-sequence-patterns {
+  gap: 1.5rem;
+}
+
+.braille-sequence--large .braille-sequence-label {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.braille-sequence--large .braille-sequence-unicode {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .braille-sequence-patterns {
+    gap: 0.5rem;
+  }
+  
+  .braille-sequence--large .braille-sequence-patterns {
+    gap: 1rem;
+  }
+  
+  .braille-sequence-label {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
