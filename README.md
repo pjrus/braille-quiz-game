@@ -64,6 +64,48 @@ npm run build
 
 The built files will be in the `dist` folder.
 
+## 🌐 Deployment
+
+### Deploy to GitHub Pages (FREE! 🎉)
+
+This project is configured for automatic deployment to GitHub Pages.
+
+#### Option 1: Automatic Deployment (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Deploy to GitHub Pages"
+   git push origin main
+   ```
+
+2. **Enable GitHub Pages**
+   - Go to your repository on GitHub
+   - Click `Settings` → `Pages`
+   - Under "Source", select `GitHub Actions`
+   - The workflow will automatically deploy your app
+
+3. **Access your live app**
+   - Your app will be available at: `https://pjrus.github.io/braille-quiz-game`
+   - Wait a few minutes for the first deployment to complete
+
+#### Option 2: Manual Deployment
+
+```bash
+# Build and deploy manually
+npm run deploy
+```
+
+### Live Demo
+🔗 **[Play the Braille Quiz Game](https://pjrus.github.io/braille-quiz-game)**
+
+### Free Hosting Benefits
+✅ **No cost** - GitHub Pages is completely free  
+✅ **Custom domain** - Add your own domain if desired  
+✅ **SSL/HTTPS** - Secure by default  
+✅ **CDN** - Fast global delivery  
+✅ **Automatic deploys** - Push to deploy
+
 ## 🎲 How to Play
 
 1. **Start the Game**: Click "Start Game" to begin a 60-second session
