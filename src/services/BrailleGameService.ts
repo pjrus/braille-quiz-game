@@ -8,20 +8,22 @@ import {
 } from '../data/brailleData';
 
 export class BrailleGameService {
-  private readonly GAME_DURATION = 60; // seconds
-  private readonly QUESTIONS_PER_GAME = 10;
+  // Configurable settings with sensible defaults
+  private gameDuration = 60; // seconds
+  private questionsPerGame = 10;
+  private difficulty: 'easy' | 'medium' | 'hard' = 'medium';
 
   private gameState$ = new BehaviorSubject<GameState>({
     currentQuestion: null,
     score: 0,
-    totalQuestions: this.QUESTIONS_PER_GAME,
+    totalQuestions: this.questionsPerGame,
     currentQuestionIndex: 0,
     isGameActive: false,
-    timeRemaining: this.GAME_DURATION,
+    timeRemaining: this.gameDuration,
     streak: 0,
   });
 
-  private timer$ = new BehaviorSubject<number>(this.GAME_DURATION);
+  private timer$ = new BehaviorSubject<number>(this.gameDuration);
   private gameStats$ = new BehaviorSubject<GameStats>({
     totalGames: 0,
     highScore: 0,
@@ -45,6 +47,32 @@ export class BrailleGameService {
     return this.timer$.asObservable();
   }
 
+  // Settings API
+  setGameLength(seconds: number): void {
+    if (seconds <= 0) return;
+    this.gameDuration = Math.floor(seconds);
+    // update subjects so UI reflects new defaults when not playing
+    this.timer$.next(this.gameDuration);
+    this.gameState$.next({
+      ...this.gameState$.value,
+      totalQuestions: this.questionsPerGame,
+      timeRemaining: this.gameDuration,
+    });
+  }
+
+  setQuestionsPerGame(count: number): void {
+    if (count <= 0) return;
+    this.questionsPerGame = Math.floor(count);
+    this.gameState$.next({
+      ...this.gameState$.value,
+      totalQuestions: this.questionsPerGame,
+    });
+  }
+
+  setDifficulty(level: 'easy' | 'medium' | 'hard'): void {
+    this.difficulty = level;
+  }
+
   startGame(): void {
     const newQuestion = this.generateQuestion();
     this.gameState$.next({
@@ -53,7 +81,8 @@ export class BrailleGameService {
       score: 0,
       currentQuestionIndex: 0,
       isGameActive: true,
-      timeRemaining: this.GAME_DURATION,
+      timeRemaining: this.gameDuration,
+      totalQuestions: this.questionsPerGame,
       streak: 0,
     });
 
@@ -61,10 +90,11 @@ export class BrailleGameService {
   }
 
   private startTimer(): void {
+    const duration = this.gameDuration;
     const timer = interval(1000).pipe(
-      map(tick => this.GAME_DURATION - tick - 1),
-      startWith(this.GAME_DURATION),
-      take(this.GAME_DURATION + 1)
+      map(tick => duration - tick - 1),
+      startWith(duration),
+      take(duration + 1)
     );
 
     timer.subscribe({
@@ -90,7 +120,7 @@ export class BrailleGameService {
     const newStreak = isCorrect ? currentState.streak + 1 : 0;
     const nextQuestionIndex = currentState.currentQuestionIndex + 1;
 
-    if (nextQuestionIndex >= this.QUESTIONS_PER_GAME) {
+    if (nextQuestionIndex >= this.questionsPerGame) {
       this.endGame(newScore, newStreak);
       return;
     }
@@ -121,8 +151,24 @@ export class BrailleGameService {
   }
 
   private generateQuestion(): Question {
-    const questionTypes = ['lowercase', 'capital', 'number'];
-    const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+    // Choose allowed question types based on difficulty
+    const allTypes = ['lowercase', 'capital', 'number'];
+    let allowedTypes: string[] = [];
+    switch (this.difficulty) {
+      case 'easy':
+        allowedTypes = ['lowercase'];
+        break;
+      case 'medium':
+        allowedTypes = ['lowercase', 'capital'];
+        break;
+      case 'hard':
+        allowedTypes = allTypes;
+        break;
+      default:
+        allowedTypes = ['lowercase', 'capital'];
+    }
+
+    const questionType = allowedTypes[Math.floor(Math.random() * allowedTypes.length)];
     
     let correctChar;
     let brailleSequence;

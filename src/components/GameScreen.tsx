@@ -14,6 +14,10 @@ const GameScreen: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string>('');
   const [feedbackType, setFeedbackType] = useState<'correct' | 'incorrect'>('correct');
+  // Local UI settings before starting a game
+  const [selectedDifficulty, setSelectedDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
+  const [selectedGameLength, setSelectedGameLength] = useState<number>(60);
+  const [selectedQuestions, setSelectedQuestions] = useState<number>(10);
 
   useEffect(() => {
     const gameStateSubscription = gameService.getGameState().subscribe(setGameState);
@@ -28,6 +32,10 @@ const GameScreen: React.FC = () => {
   }, []);
 
   const handleStartGame = () => {
+    // Apply settings to service then start
+    gameService.setDifficulty(selectedDifficulty);
+    gameService.setGameLength(selectedGameLength);
+    gameService.setQuestionsPerGame(selectedQuestions);
     gameService.startGame();
     setSelectedAnswer('');
     setShowFeedback(false);
@@ -124,13 +132,47 @@ const GameScreen: React.FC = () => {
               </div>
             </div>
             
-            <div className="start-actions">
-              <button 
-                className="btn btn-primary btn-large" 
-                onClick={handleStartGame}
-              >
-                {gameStats.totalGames > 0 ? 'Play Again' : 'Start Game'}
-              </button>
+            <div className="game-settings">
+              <h3>Game Settings</h3>
+              <div className="setting-row">
+                <label>Difficulty:</label>
+                <select value={selectedDifficulty} onChange={e => setSelectedDifficulty(e.target.value as 'easy' | 'medium' | 'hard')}>
+                  <option value="easy">Easy (lowercase only)</option>
+                  <option value="medium">Medium (lowercase + capitals)</option>
+                  <option value="hard">Hard (includes numbers)</option>
+                </select>
+              </div>
+
+              <div className="setting-row">
+                <label>Game Length (seconds):</label>
+                <input
+                  type="number"
+                  min={10}
+                  max={300}
+                  value={selectedGameLength}
+                  onChange={e => setSelectedGameLength(Number(e.target.value) || 10)}
+                />
+              </div>
+
+              <div className="setting-row">
+                <label>Number of Questions:</label>
+                <input
+                  type="number"
+                  min={1}
+                  max={100}
+                  value={selectedQuestions}
+                  onChange={e => setSelectedQuestions(Number(e.target.value) || 1)}
+                />
+              </div>
+
+              <div className="start-actions">
+                <button 
+                  className="btn btn-primary btn-large" 
+                  onClick={handleStartGame}
+                >
+                  {gameStats.totalGames > 0 ? 'Play Again' : 'Start Game'}
+                </button>
+              </div>
             </div>
 
             <div className="game-instructions">
