@@ -13,6 +13,7 @@ const GameScreen: React.FC = () => {
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [showFeedback, setShowFeedback] = useState<boolean>(false);
   const [feedbackMessage, setFeedbackMessage] = useState<string>('');
+  const [feedbackType, setFeedbackType] = useState<'correct' | 'incorrect'>('correct');
 
   useEffect(() => {
     const gameStateSubscription = gameService.getGameState().subscribe(setGameState);
@@ -30,19 +31,23 @@ const GameScreen: React.FC = () => {
     gameService.startGame();
     setSelectedAnswer('');
     setShowFeedback(false);
+    setFeedbackMessage('');
   };
 
   const handleAnswerSelect = (answer: string) => {
-    if (!gameState?.isGameActive) return;
+    if (!gameState?.isGameActive || showFeedback) return;
     
     setSelectedAnswer(answer);
     const isCorrect = answer === gameState.currentQuestion?.correctAnswer;
     
     setFeedbackMessage(isCorrect ? 'Correct! 🎉' : `Wrong! The answer was ${gameState.currentQuestion?.correctAnswer}`);
+    setFeedbackType(isCorrect ? 'correct' : 'incorrect');
     setShowFeedback(true);
     
+    // Process the answer immediately, then wait before hiding feedback
+    gameService.answerQuestion(answer);
+    
     setTimeout(() => {
-      gameService.answerQuestion(answer);
       setSelectedAnswer('');
       setShowFeedback(false);
     }, 1500);
@@ -158,7 +163,7 @@ const GameScreen: React.FC = () => {
                 </div>
 
                 {showFeedback && (
-                  <div className={`feedback ${selectedAnswer === gameState.currentQuestion.correctAnswer ? 'feedback-correct' : 'feedback-incorrect'}`}>
+                  <div className={`feedback feedback-${feedbackType}`}>
                     {feedbackMessage}
                   </div>
                 )}
