@@ -74,7 +74,7 @@ const GameScreen: React.FC = () => {
   return (
     <div className="game-screen">
       <header className="game-header">
-        <h1 className="game-title">🔤 Braille Character Quiz</h1>
+        <h1 className="game-title">Braille Character Quiz</h1>
         <div className="game-info">
           <div className="info-item">
             <span className="info-label">Score:</span>
