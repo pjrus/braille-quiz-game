@@ -102,36 +102,6 @@ const GameScreen: React.FC = () => {
       <main className="game-content">
         {!gameState.isGameActive ? (
           <div className="game-start-screen">
-            <div className="stats-panel">
-              <h2>Your Statistics</h2>
-              <div className="stats-grid">
-                <div className="stat-item">
-                  <span className="stat-value">{gameStats.totalGames}</span>
-                  <span className="stat-label">Games Played</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-value">{gameStats.highScore}</span>
-                  <span className="stat-label">High Score</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-value">{gameStats.averageScore}</span>
-                  <span className="stat-label">Average Score</span>
-                </div>
-                <div className="stat-item">
-                  <span className="stat-value">{gameStats.bestStreak}</span>
-                  <span className="stat-label">Best Streak</span>
-                </div>
-              </div>
-              <div className="stats-actions">
-                <button 
-                  className="btn btn-secondary" 
-                  onClick={handleResetStats}
-                >
-                  Reset Stats
-                </button>
-              </div>
-            </div>
-            
             <div className="game-settings">
               <h3>Game Settings</h3>
               <div className="setting-row">
@@ -171,6 +141,36 @@ const GameScreen: React.FC = () => {
                   onClick={handleStartGame}
                 >
                   {gameStats.totalGames > 0 ? 'Play Again' : 'Start Game'}
+                </button>
+              </div>
+            </div>
+
+            <div className="stats-panel">
+              <h2>Your Statistics</h2>
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-value">{gameStats.totalGames}</span>
+                  <span className="stat-label">Games Played</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-value">{gameStats.highScore}</span>
+                  <span className="stat-label">High Score</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-value">{gameStats.averageScore}</span>
+                  <span className="stat-label">Average Score</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-value">{gameStats.bestStreak}</span>
+                  <span className="stat-label">Best Streak</span>
+                </div>
+              </div>
+              <div className="stats-actions">
+                <button 
+                  className="btn btn-secondary" 
+                  onClick={handleResetStats}
+                >
+                  Reset Stats
                 </button>
               </div>
             </div>
