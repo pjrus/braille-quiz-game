@@ -9,7 +9,7 @@ interface GameCompletionScreenProps {
 
 export default function GameCompletionScreen({ summary, onPlayAgain }: GameCompletionScreenProps) {
   return (
-    <Card className="mx-auto max-w-xl">
+    <Card>
       <CardHeader>
         <CardTitle className="text-center text-xl">Game Over</CardTitle>
       </CardHeader>

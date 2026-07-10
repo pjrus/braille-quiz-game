@@ -24,7 +24,7 @@ export default function GameStartScreen({
   hasPlayed,
 }: GameStartScreenProps) {
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-center text-xl">Game Settings</CardTitle>
@@ -112,7 +112,7 @@ export default function GameStartScreen({
         </CardContent>
       </Card>
 
-      <Card className="bg-accent-surface ring-accent-border">
+      <Card>
         <CardHeader>
           <CardTitle className="text-center text-lg">How to Play</CardTitle>
         </CardHeader>

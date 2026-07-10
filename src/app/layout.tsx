@@ -7,11 +7,22 @@ import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
+const faviconPath =
+  (process.env.NODE_ENV ?? 'development') === 'production'
+    ? '/braille-quiz-game/favicon.svg'
+    : '/favicon.svg';
+
 export const metadata: Metadata = {
   title: 'Braille Character Quiz',
   description:
     'Interactive web game for learning and practicing Braille characters — lowercase letters, capital letters, and numbers.',
-  icons: { icon: (process.env.NODE_ENV ?? 'development') === 'production' ? '/braille-quiz-game/favicon.svg' : '/favicon.svg' },
+  icons: {
+    // An explicit apple-touch-icon with purpose "any" stops iOS/Android from
+    // auto-generating their own masked (extra-rounded) home-screen icon from
+    // the raw favicon, so mobile matches the desktop tab icon exactly.
+    icon: faviconPath,
+    apple: faviconPath,
+  },
 };
 
 export const viewport: Viewport = {

@@ -84,7 +84,7 @@ export default function GameScreen() {
   }, [state.hasStarted, state.isGameActive, state.score, state.streak, state.currentQuestionIndex, state.totalQuestions]);
 
   return (
-    <div className="mx-auto max-w-[1100px]">
+    <div className="mx-auto max-w-[880px]">
       <GameHeaderStats
         score={state.score}
         question={`${Math.min(state.currentQuestionIndex + (showGame ? 1 : 0), state.totalQuestions)} / ${state.totalQuestions}`}

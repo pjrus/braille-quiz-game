@@ -3,8 +3,16 @@
 import { useEffect, useState } from 'react';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import AppSidebar from '@/components/Sidebar';
-import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
+import { SidebarProvider, SidebarInset, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import styles from './AppShell.module.css';
+
+// Hidden while the mobile sheet is open — the sheet has its own trigger in
+// its header, and this fixed one would otherwise render on top of it.
+function MobileTrigger() {
+  const { openMobile } = useSidebar();
+  if (openMobile) return null;
+  return <SidebarTrigger className={styles.mobileTrigger} />;
+}
 
 const SIDEBAR_WIDTH_KEY = 'braille-sidebar-width';
 const SIDEBAR_MIN_WIDTH = 140;
@@ -40,7 +48,7 @@ export default function AppShell({
           maxWidth={SIDEBAR_MAX_WIDTH}
         />
         <SidebarInset>
-          <SidebarTrigger className={styles.mobileTrigger} />
+          <MobileTrigger />
           <div className={styles.main}>{children}</div>
         </SidebarInset>
       </SidebarProvider>
