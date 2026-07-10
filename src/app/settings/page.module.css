@@ -1,0 +1,17 @@
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 1.6rem; }
+}

@@ -2,83 +2,56 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, type Dispatch, type SetStateAction } from 'react';
-import styles from './Sidebar.module.css';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
 
 const NAV_ITEMS = [
   { href: '/', label: 'Game' },
   { href: '/rules', label: 'Rules' },
   { href: '/reference', label: 'Reference' },
+  { href: '/settings', label: 'Settings' },
 ] as const;
 
-interface SidebarProps {
-  collapsedState: [boolean, Dispatch<SetStateAction<boolean>>];
+function normalize(path: string): string {
+  return path.length > 1 ? path.replace(/\/$/, '') : path;
 }
 
-export default function Sidebar({ collapsedState }: SidebarProps) {
+export default function AppSidebar() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [collapsed, setCollapsed] = collapsedState;
 
   return (
-    <>
-      <button
-        type="button"
-        className={styles.mobileToggle}
-        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={mobileOpen}
-        onClick={() => setMobileOpen((v) => !v)}
-      >
-        <span className={`${styles.bar} ${mobileOpen ? styles.barOpenTop : ''}`} />
-        <span className={`${styles.bar} ${mobileOpen ? styles.barOpenMid : ''}`} />
-        <span className={`${styles.bar} ${mobileOpen ? styles.barOpenBot : ''}`} />
-      </button>
-
-      <nav
-        className={`${styles.sidebar} ${mobileOpen ? styles.open : ''} ${collapsed ? styles.collapsed : ''}`}
-        aria-label="Primary navigation"
-      >
-        <div className={styles.header}>
-          <h2 className={styles.title}>{collapsed ? 'BQ' : 'Braille Quiz'}</h2>
-          <button
-            type="button"
-            className={styles.collapseBtn}
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            onClick={() => setCollapsed((v) => !v)}
-          >
-            <span className={styles.minus} />
-            <span className={`${styles.minus} ${styles.minusShort}`} />
-          </button>
-        </div>
-
-        <ul className={styles.list}>
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="flex-row items-center justify-between">
+        <span className="truncate text-sm font-semibold group-data-[collapsible=icon]:hidden">
+          Braille Quiz
+        </span>
+        <SidebarTrigger />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu className="gap-1 p-2">
           {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = normalize(pathname) === item.href;
             return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`${styles.item} ${isActive ? styles.itemActive : ''}`}
-                  title={item.label}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <span className={styles.text}>{item.label}</span>
-                </Link>
-              </li>
+              <SidebarMenuItem key={item.href}>
+                <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                  <Link href={item.href}>
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             );
           })}
-        </ul>
-      </nav>
-
-      {mobileOpen && (
-        <button
-          type="button"
-          className={styles.overlay}
-          aria-label="Close menu"
-          tabIndex={-1}
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-    </>
+        </SidebarMenu>
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
   );
 }

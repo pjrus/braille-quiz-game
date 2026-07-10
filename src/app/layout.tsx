@@ -1,6 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import AppShell from '@/components/AppShell';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: 'Braille Character Quiz',
@@ -24,9 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" data-accent="purple" suppressHydrationWarning>
+    <html lang="en" data-theme="light" data-accent="purple" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body>
-        <AppShell>{children}</AppShell>
+        <TooltipProvider>
+          <AppShell>{children}</AppShell>
+        </TooltipProvider>
       </body>
     </html>
   );

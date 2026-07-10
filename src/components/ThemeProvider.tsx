@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -17,12 +18,13 @@ interface ThemeContextValue {
   accent: Accent;
   toggleTheme: () => void;
   cycleAccent: () => void;
+  setTheme: (theme: Theme) => void;
+  setAccent: (accent: Accent) => void;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 function getPreferredTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
   const saved = window.localStorage.getItem(THEME_KEY);
   if (saved === 'dark' || saved === 'light') return saved;
   return window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -31,7 +33,6 @@ function getPreferredTheme(): Theme {
 }
 
 function getSavedAccent(): Accent {
-  if (typeof window === 'undefined') return 'purple';
   const saved = window.localStorage.getItem(ACCENT_KEY);
   return ACCENTS.includes(saved as Accent) ? (saved as Accent) : 'purple';
 }
@@ -45,36 +46,51 @@ function applyToDocument(theme: Theme, accent: Accent) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getPreferredTheme);
-  const [accent, setAccent] = useState<Accent>(getSavedAccent);
+  // Matches the server-rendered defaults in layout.tsx; real values are
+  // read from localStorage after mount to avoid a hydration mismatch.
+  const [theme, setThemeState] = useState<Theme>('light');
+  const [accent, setAccentState] = useState<Accent>('purple');
 
-  // Apply initial values to document on first client render.
-  if (typeof window !== 'undefined') {
-    applyToDocument(theme, accent);
-  }
+  useEffect(() => {
+    const nextTheme = getPreferredTheme();
+    const nextAccent = getSavedAccent();
+    // One-time sync from localStorage after the SSR-safe first paint.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setThemeState(nextTheme);
+    setAccentState(nextAccent);
+    applyToDocument(nextTheme, nextAccent);
+  }, []);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === 'dark' ? 'light' : 'dark';
+  const setTheme = useCallback(
+    (next: Theme) => {
+      setThemeState(next);
       applyToDocument(next, accent);
       window.localStorage.setItem(THEME_KEY, next);
-      return next;
-    });
-  }, [accent]);
+    },
+    [accent],
+  );
 
-  const cycleAccent = useCallback(() => {
-    setAccent((prev) => {
-      const idx = ACCENTS.indexOf(prev);
-      const next = ACCENTS[(idx + 1) % ACCENTS.length];
+  const setAccent = useCallback(
+    (next: Accent) => {
+      setAccentState(next);
       applyToDocument(theme, next);
       window.localStorage.setItem(ACCENT_KEY, next);
-      return next;
-    });
-  }, [theme]);
+    },
+    [theme],
+  );
+
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  }, [theme, setTheme]);
+
+  const cycleAccent = useCallback(() => {
+    const idx = ACCENTS.indexOf(accent);
+    setAccent(ACCENTS[(idx + 1) % ACCENTS.length]);
+  }, [accent, setAccent]);
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, accent, toggleTheme, cycleAccent }),
-    [theme, accent, toggleTheme, cycleAccent],
+    () => ({ theme, accent, toggleTheme, cycleAccent, setTheme, setAccent }),
+    [theme, accent, toggleTheme, cycleAccent, setTheme, setAccent],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

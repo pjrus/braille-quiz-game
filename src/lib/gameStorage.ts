@@ -21,6 +21,15 @@ export const ACCENTS: Accent[] = [
   'blue',
 ];
 
+export const ACCENT_COLORS: Record<Accent, string> = {
+  purple: '#7c3aed',
+  teal: '#0d9488',
+  emerald: '#059669',
+  amber: '#d97706',
+  rose: '#e11d48',
+  blue: '#2563eb',
+};
+
 export interface GameSettings {
   difficulty: Difficulty;
   gameLength: number;
