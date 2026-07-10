@@ -1,6 +1,7 @@
-import React from 'react';
-import type { BrailleCharacter } from '../types/braille';
-import './BraillePattern.css';
+'use client';
+
+import type { BrailleCharacter } from '@/types/braille';
+import styles from './BraillePattern.module.css';
 
 interface BraillePatternProps {
   brailleCharacter: BrailleCharacter;
@@ -8,52 +9,40 @@ interface BraillePatternProps {
   showUnicode?: boolean;
 }
 
-const BraillePattern: React.FC<BraillePatternProps> = ({
+export default function BraillePattern({
   brailleCharacter,
   size = 'medium',
   showUnicode = false,
-}) => {
+}: BraillePatternProps) {
   const { braillePattern, unicode } = brailleCharacter;
+  const positions = [0, 1, 2, 3, 4, 5];
 
   return (
-    <div className={`braille-pattern braille-pattern--${size}`}>
-      <div className="braille-grid">
-        <div className="braille-column">
-          <div
-            className={`braille-dot ${braillePattern[0] ? 'braille-dot--active' : ''}`}
-            data-position="1"
-          />
-          <div
-            className={`braille-dot ${braillePattern[1] ? 'braille-dot--active' : ''}`}
-            data-position="2"
-          />
-          <div
-            className={`braille-dot ${braillePattern[2] ? 'braille-dot--active' : ''}`}
-            data-position="3"
-          />
+    <div className={`${styles.pattern} ${styles[size]}`}>
+      <div className={styles.grid} role="img" aria-label={`Braille pattern for ${brailleCharacter.displayName ?? brailleCharacter.letter}`}>
+        <div className={styles.column}>
+          {positions.slice(0, 3).map((p) => (
+            <Dot key={p} active={braillePattern[p]} position={p + 1} />
+          ))}
         </div>
-        <div className="braille-column">
-          <div
-            className={`braille-dot ${braillePattern[3] ? 'braille-dot--active' : ''}`}
-            data-position="4"
-          />
-          <div
-            className={`braille-dot ${braillePattern[4] ? 'braille-dot--active' : ''}`}
-            data-position="5"
-          />
-          <div
-            className={`braille-dot ${braillePattern[5] ? 'braille-dot--active' : ''}`}
-            data-position="6"
-          />
+        <div className={styles.column}>
+          {positions.slice(3).map((p) => (
+            <Dot key={p} active={braillePattern[p]} position={p + 1} />
+          ))}
         </div>
       </div>
       {showUnicode && (
-        <div className="braille-unicode">
-          {unicode}
-        </div>
+        <div className={styles.unicode} aria-hidden="true">{unicode}</div>
       )}
     </div>
   );
-};
+}
 
-export default BraillePattern;
+function Dot({ active, position }: { active: boolean; position: number }) {
+  return (
+    <span
+      className={`${styles.dot} ${active ? styles.active : ''}`}
+      data-position={position}
+    />
+  );
+}

@@ -1,0 +1,55 @@
+.group {
+  position: fixed;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.accentBtn,
+.themeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  transition:
+    background-color 160ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 160ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accentBtn {
+  width: 40px;
+  height: 40px;
+}
+.themeBtn {
+  width: 44px;
+  height: 44px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.accentBtn:hover,
+.themeBtn:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  transform: scale(1.05);
+}
+
+.swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  border: 1px solid var(--accent-strong);
+}
+
+@media (max-width: 480px) {
+  .accentBtn { width: 36px; height: 36px; }
+  .themeBtn { width: 40px; height: 40px; font-size: 0.9rem; }
+}

@@ -1,17 +1,17 @@
 export interface BrailleCharacter {
   letter: string;
-  braillePattern: boolean[]; // 6 dots: [1,2,3,4,5,6]
+  braillePattern: boolean[];
   unicode: string;
   type?: 'letter' | 'capital' | 'number' | 'symbol';
-  displayName?: string; // For showing "Capital A" or "Number 1"
+  displayName?: string;
 }
 
 export interface Question {
   id: string;
-  brailleCharacters: BrailleCharacter[]; // Changed from single to array for compound patterns
+  brailleCharacters: BrailleCharacter[];
   options: string[];
   correctAnswer: string;
-  questionText?: string; // Custom question text
+  questionText?: string;
 }
 
 export interface GameState {
@@ -30,3 +30,10 @@ export interface GameStats {
   averageScore: number;
   bestStreak: number;
 }
+
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
+export const DEFAULT_GAME_DURATION = 60;
+export const DEFAULT_QUESTIONS_PER_GAME = 10;
+export const DEFAULT_DIFFICULTY: Difficulty = 'medium';
+export const POINTS_PER_CORRECT = 10;

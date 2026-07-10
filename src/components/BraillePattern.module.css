@@ -1,0 +1,89 @@
+.pattern {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.grid {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dot {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  transition:
+    background-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 180ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.active {
+  background: var(--accent);
+  border-color: var(--accent-strong);
+  transform: scale(1.05);
+}
+
+.unicode {
+  font-family: 'SFMono-Regular', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Sizes */
+.small .dot {
+  width: 12px;
+  height: 12px;
+}
+.small .grid {
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+.small .column {
+  gap: var(--space-1);
+}
+.small .unicode {
+  font-size: 1.2rem;
+}
+
+.medium .dot {
+  width: 20px;
+  height: 20px;
+}
+
+.large .dot {
+  width: 32px;
+  height: 32px;
+}
+.large .grid {
+  gap: var(--space-5);
+  padding: var(--space-5);
+}
+.large .column {
+  gap: var(--space-5);
+}
+.large .unicode {
+  font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  .medium .dot { width: 16px; height: 16px; }
+  .large .dot { width: 24px; height: 24px; }
+  .grid { gap: var(--space-2); padding: var(--space-3); }
+  .column { gap: var(--space-2); }
+}

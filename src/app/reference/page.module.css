@@ -1,0 +1,198 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+.intro {
+  text-align: center;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-3);
+  padding: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-5);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.item {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  transition:
+    border-color 160ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 160ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.item:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-surface);
+}
+
+.itemPattern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
+}
+
+.itemInfo {
+  text-align: center;
+}
+
+.itemLetter {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.itemLetterSpecial {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: var(--radius-1);
+  padding: 2px var(--space-2);
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.itemUnicode {
+  font-family: 'SFMono-Regular', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.itemName {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.sequence {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.explain {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.explainRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.op {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.resultPill {
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+}
+
+.explain p {
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.tipGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-3);
+}
+
+.tipCard {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.tipCard h3 {
+  font-size: 1.05rem;
+  margin: 0 0 var(--space-3);
+  color: var(--text-primary);
+}
+
+.tipCard p {
+  color: var(--text-tertiary);
+  line-height: 1.55;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 1.6rem; }
+  .section { padding: var(--space-4); }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-3); }
+  .explainRow { flex-direction: column; gap: var(--space-2); }
+  .tipGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .item { padding: var(--space-3); }
+  .itemLetter { font-size: 1.4rem; }
+  .itemUnicode { font-size: 1.1rem; }
+}

@@ -1,7 +1,8 @@
-import React from 'react';
-import type { BrailleCharacter } from '../types/braille';
+'use client';
+
+import type { BrailleCharacter } from '@/types/braille';
 import BraillePattern from './BraillePattern';
-import './BrailleSequence.css';
+import styles from './BrailleSequence.module.css';
 
 interface BrailleSequenceProps {
   brailleCharacters: BrailleCharacter[];
@@ -9,37 +10,29 @@ interface BrailleSequenceProps {
   showUnicode?: boolean;
 }
 
-const BrailleSequence: React.FC<BrailleSequenceProps> = ({
+export default function BrailleSequence({
   brailleCharacters,
   size = 'medium',
   showUnicode = false,
-}) => {
+}: BrailleSequenceProps) {
   return (
-    <div className={`braille-sequence braille-sequence--${size}`}>
-      <div className="braille-sequence-patterns">
+    <div className={`${styles.sequence} ${styles[size]}`}>
+      <div className={styles.patterns}>
         {brailleCharacters.map((char, index) => (
-          <div key={`${char.letter}-${index}`} className="braille-sequence-item">
-            <BraillePattern
-              brailleCharacter={char}
-              size={size}
-              showUnicode={showUnicode}
-            />
+          <div key={`${char.letter}-${index}`} className={styles.item}>
+            <BraillePattern brailleCharacter={char} size={size} showUnicode={showUnicode} />
             {char.type === 'symbol' && (
-              <div className="braille-sequence-label">
-                {char.displayName}
-              </div>
+              <div className={styles.label}>{char.displayName}</div>
             )}
           </div>
         ))}
       </div>
-      
+
       {showUnicode && (
-        <div className="braille-sequence-unicode">
-          {brailleCharacters.map(char => char.unicode).join('')}
+        <div className={styles.unicode} aria-hidden="true">
+          {brailleCharacters.map((c) => c.unicode).join('')}
         </div>
       )}
     </div>
   );
-};
-
-export default BrailleSequence;
+}

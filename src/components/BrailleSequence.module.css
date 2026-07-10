@@ -1,0 +1,53 @@
+.sequence {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.patterns {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--accent-surface);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-1);
+  padding: 2px var(--space-2);
+  white-space: nowrap;
+}
+
+.unicode {
+  font-family: 'SFMono-Regular', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.small .patterns { gap: var(--space-2); }
+.small .label { font-size: 0.65rem; padding: 1px 4px; }
+.small .unicode { font-size: 1.5rem; }
+
+.large .patterns { gap: var(--space-6); }
+.large .label { font-size: 0.85rem; padding: 2px var(--space-3); }
+.large .unicode { font-size: 2.5rem; }
+
+@media (max-width: 768px) {
+  .patterns { gap: var(--space-2); }
+  .large .patterns { gap: var(--space-4); }
+  .label { font-size: 0.65rem; padding: 1px 4px; }
+}

@@ -1,0 +1,231 @@
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  color: var(--text-primary);
+}
+
+.section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-3);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.sectionTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+  color: var(--text-primary);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.section p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rule {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+}
+
+.ruleNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ruleBody h3 {
+  font-size: 1.05rem;
+  margin: 0 0 var(--space-1);
+  color: var(--text-primary);
+}
+
+.ruleBody p {
+  color: var(--text-tertiary);
+}
+
+.difficultyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+
+.diffCard {
+  padding: var(--space-5);
+  border-radius: var(--radius-3);
+  border: 1.5px solid;
+  text-align: center;
+}
+
+.diffCard[data-level='easy'] {
+  border-color: var(--success-border);
+  background: var(--success-surface);
+}
+.diffCard[data-level='medium'] {
+  border-color: var(--accent-border);
+  background: var(--accent-surface);
+}
+.diffCard[data-level='hard'] {
+  border-color: var(--danger-border);
+  background: var(--danger-surface);
+}
+
+.diffCard h3 {
+  margin: 0 0 var(--space-3);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.diffDesc {
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-1);
+}
+
+.diffNote {
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.scoring,
+.tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.scoringItem,
+.tip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+}
+
+.scoringIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.scoringItem h4 {
+  margin: 0 0 var(--space-1);
+  color: var(--text-primary);
+}
+
+.tipMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-surface);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.brailleExplain {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.dotDiagram {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
+  gap: var(--space-2);
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-2);
+  padding: var(--space-4);
+}
+
+.dotLabel {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dotText {
+  flex: 1;
+  min-width: 240px;
+}
+
+.dotText p {
+  margin-bottom: var(--space-3);
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 1.6rem; }
+  .section { padding: var(--space-4); }
+  .difficultyGrid { grid-template-columns: 1fr; }
+  .rule,
+  .scoringItem,
+  .tip {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .brailleExplain {
+    flex-direction: column;
+    text-align: center;
+  }
+}
