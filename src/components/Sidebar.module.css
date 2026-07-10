@@ -129,25 +129,6 @@
   color: var(--accent-text);
 }
 
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-1);
-  font-size: 0.95rem;
-  font-weight: 700;
-  background: var(--accent-surface);
-  color: var(--accent);
-  border: 1px solid var(--accent-border);
-}
-.itemActive .icon {
-  background: var(--accent-text);
-  color: var(--accent);
-  border-color: var(--accent-text);
-}
-
 .text {
   font-weight: 600;
   font-size: 0.95rem;

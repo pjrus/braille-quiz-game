@@ -25,7 +25,7 @@ export default function ThemeToggle() {
         aria-pressed={theme === 'dark'}
         title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
       >
-        <span aria-hidden="true">{theme === 'dark' ? 'L' : 'D'}</span>
+        <span aria-hidden="true">{theme === 'dark' ? '☀' : '☾'}</span>
       </button>
     </div>
   );

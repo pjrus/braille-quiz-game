@@ -6,9 +6,9 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
 import styles from './Sidebar.module.css';
 
 const NAV_ITEMS = [
-  { href: '/', label: 'Game', key: 'G' },
-  { href: '/rules', label: 'Rules', key: 'R' },
-  { href: '/reference', label: 'Reference', key: 'B' },
+  { href: '/', label: 'Game' },
+  { href: '/rules', label: 'Rules' },
+  { href: '/reference', label: 'Reference' },
 ] as const;
 
 interface SidebarProps {
@@ -65,7 +65,6 @@ export default function Sidebar({ collapsedState }: SidebarProps) {
                   className={`${styles.item} ${isActive ? styles.itemActive : ''}`}
                   title={item.label}
                 >
-                  <span className={styles.icon} aria-hidden="true">{item.key}</span>
                   <span className={styles.text}>{item.label}</span>
                 </Link>
               </li>
