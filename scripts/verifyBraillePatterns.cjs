@@ -23,7 +23,7 @@ while ((m = entryRegex.exec(src)) !== null) {
   let pattern;
   try {
     pattern = JSON.parse(bools);
-  } catch (err) {
+  } catch (_err) {
     console.error('Failed to parse pattern for', letter, patternStr);
     continue;
   }

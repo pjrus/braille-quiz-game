@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import { useState, type Dispatch, type SetStateAction } from 'react';
 import styles from './Sidebar.module.css';
 
 const NAV_ITEMS = [
@@ -19,10 +19,6 @@ export default function Sidebar({ collapsedState }: SidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = collapsedState;
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   return (
     <>
@@ -64,6 +60,7 @@ export default function Sidebar({ collapsedState }: SidebarProps) {
                   href={item.href}
                   className={`${styles.item} ${isActive ? styles.itemActive : ''}`}
                   title={item.label}
+                  onClick={() => setMobileOpen(false)}
                 >
                   <span className={styles.text}>{item.label}</span>
                 </Link>

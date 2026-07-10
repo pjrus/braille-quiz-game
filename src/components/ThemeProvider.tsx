@@ -4,7 +4,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -16,7 +15,6 @@ type Theme = 'light' | 'dark';
 interface ThemeContextValue {
   theme: Theme;
   accent: Accent;
-  isReady: boolean;
   toggleTheme: () => void;
   cycleAccent: () => void;
 }
@@ -47,18 +45,13 @@ function applyToDocument(theme: Theme, accent: Accent) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('light');
-  const [accent, setAccent] = useState<Accent>('purple');
-  const [isReady, setIsReady] = useState(false);
+  const [theme, setTheme] = useState<Theme>(getPreferredTheme);
+  const [accent, setAccent] = useState<Accent>(getSavedAccent);
 
-  useEffect(() => {
-    const initialTheme = getPreferredTheme();
-    const initialAccent = getSavedAccent();
-    setTheme(initialTheme);
-    setAccent(initialAccent);
-    applyToDocument(initialTheme, initialAccent);
-    setIsReady(true);
-  }, []);
+  // Apply initial values to document on first client render.
+  if (typeof window !== 'undefined') {
+    applyToDocument(theme, accent);
+  }
 
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
@@ -80,8 +73,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const value = useMemo<ThemeContextValue>(
-    () => ({ theme, accent, isReady, toggleTheme, cycleAccent }),
-    [theme, accent, isReady, toggleTheme, cycleAccent],
+    () => ({ theme, accent, toggleTheme, cycleAccent }),
+    [theme, accent, toggleTheme, cycleAccent],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

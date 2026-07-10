@@ -95,7 +95,10 @@ export function useGameSession(
   const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const wasActiveRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  });
 
   const stopTimer = useCallback(() => {
     if (tickRef.current) {

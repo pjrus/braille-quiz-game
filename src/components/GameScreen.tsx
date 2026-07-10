@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import BrailleSequence from './BrailleSequence';
 import { useGameSession } from '@/hooks/useGameSession';
 import { useGameStats, usePersistedSettings } from '@/hooks/useGameStats';
-import { DEFAULT_SETTINGS, type GameSettings } from '@/lib/gameStorage';
+import type { GameSettings } from '@/lib/gameStorage';
 import type { Difficulty } from '@/types/braille';
 import styles from './GameScreen.module.css';
 
@@ -15,17 +15,12 @@ export default function GameScreen() {
   const { stats, recordGame, resetStats } = useGameStats();
   const { state, start, answer } = useGameSession(recordGame);
 
-  const [draft, setDraft] = useState<GameSettings>(settings ?? DEFAULT_SETTINGS);
   const [selectedAnswer, setSelectedAnswer] = useState<string>('');
   const [feedback, setFeedback] = useState<{
     type: 'correct' | 'incorrect';
     message: string;
   } | null>(null);
   const feedbackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    if (settings) setDraft(settings);
-  }, [settings]);
 
   useEffect(() => {
     return () => {
@@ -37,9 +32,9 @@ export default function GameScreen() {
     setFeedback(null);
     setSelectedAnswer('');
     start({
-      difficulty: draft.difficulty,
-      gameLength: draft.gameLength,
-      questionsPerGame: draft.questionsPerGame,
+      difficulty: settings.difficulty,
+      gameLength: settings.gameLength,
+      questionsPerGame: settings.questionsPerGame,
     });
   };
 
@@ -68,15 +63,11 @@ export default function GameScreen() {
   };
 
   const handleSettingsChange = (next: Partial<GameSettings>) => {
-    const merged = { ...draft, ...next };
-    setDraft(merged);
-    if (settings) updateSettings(merged);
+    updateSettings({ ...settings, ...next });
   };
 
   const showStartScreen = !state.isGameActive && !state.hasStarted;
   const showGame = state.isGameActive || Boolean(feedback);
-
-  const settingsReady = settings !== null;
   const timerLow = state.isGameActive && state.timeRemaining <= 10;
 
   const summary = useMemo(() => {
@@ -104,11 +95,9 @@ export default function GameScreen() {
       </header>
 
       <section className={styles.content}>
-        {!settingsReady ? (
-          <p className={styles.loading}>Loading…</p>
-        ) : showStartScreen ? (
+        {showStartScreen ? (
           <StartScreen
-            draft={draft}
+            settings={settings}
             onSettingsChange={handleSettingsChange}
             onStart={handleStart}
             stats={stats}
@@ -141,14 +130,14 @@ function Stat({ label, value, danger }: { label: string; value: string | number;
 }
 
 function StartScreen({
-  draft,
+  settings,
   onSettingsChange,
   onStart,
   stats,
   onResetStats,
   hasPlayed,
 }: {
-  draft: GameSettings;
+  settings: GameSettings;
   onSettingsChange: (next: Partial<GameSettings>) => void;
   onStart: () => void;
   stats: { totalGames: number; highScore: number; averageScore: number; bestStreak: number };
@@ -166,7 +155,7 @@ function StartScreen({
             id="difficulty"
             name="difficulty"
             autoComplete="off"
-            value={draft.difficulty}
+            value={settings.difficulty}
             onChange={(e) => onSettingsChange({ difficulty: e.target.value as Difficulty })}
           >
             <option value="easy">Easy — lowercase only</option>
@@ -185,7 +174,7 @@ function StartScreen({
             autoComplete="off"
             min={10}
             max={300}
-            value={draft.gameLength}
+            value={settings.gameLength}
             onChange={(e) => onSettingsChange({ gameLength: Math.max(10, Math.min(300, Number(e.target.value) || 10)) })}
           />
         </div>
@@ -200,7 +189,7 @@ function StartScreen({
             autoComplete="off"
             min={1}
             max={100}
-            value={draft.questionsPerGame}
+            value={settings.questionsPerGame}
             onChange={(e) => onSettingsChange({ questionsPerGame: Math.max(1, Math.min(100, Number(e.target.value) || 1)) })}
           />
         </div>

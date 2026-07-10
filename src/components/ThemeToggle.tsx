@@ -4,7 +4,7 @@ import { useTheme } from './ThemeProvider';
 import styles from './ThemeToggle.module.css';
 
 export default function ThemeToggle() {
-  const { theme, accent, toggleTheme, cycleAccent, isReady } = useTheme();
+  const { theme, accent, toggleTheme, cycleAccent } = useTheme();
 
   return (
     <div className={styles.group}>
@@ -15,7 +15,7 @@ export default function ThemeToggle() {
         aria-label={`Change accent color. Current: ${accent}`}
         title={`Accent: ${accent}`}
       >
-        <span className={styles.swatch} data-accent={isReady ? accent : 'purple'} />
+        <span className={styles.swatch} data-accent={accent} />
       </button>
       <button
         type="button"

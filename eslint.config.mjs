@@ -1,17 +1,14 @@
-import { FlatCompat } from '@eslint/eslintrc';
+import next from 'eslint-config-next';
+import tseslint from 'typescript-eslint';
 
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
-
-const eslintConfig = [
+const config = [
+  ...next,
   {
-    ignores: ['.next/**', 'out/**', 'dist/**', 'node_modules/**'],
-  },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  {
+    plugins: { '@typescript-eslint': tseslint.plugin },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
     },
   },
 ];
 
-export default eslintConfig;
+export default config;

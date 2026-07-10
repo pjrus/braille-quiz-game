@@ -1,22 +1,29 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
+  DEFAULT_SETTINGS,
   DEFAULT_STATS,
+  loadSettings,
   loadStats,
+  saveSettings,
   saveStats,
   type GameSettings,
-  loadSettings,
-  saveSettings,
 } from '@/lib/gameStorage';
 import type { GameStats } from '@/types/braille';
 
-export function useGameStats() {
-  const [stats, setStats] = useState<GameStats>(DEFAULT_STATS);
+function getInitialStats(): GameStats {
+  if (typeof window === 'undefined') return DEFAULT_STATS;
+  return loadStats();
+}
 
-  useEffect(() => {
-    setStats(loadStats());
-  }, []);
+function getInitialSettings(): GameSettings {
+  if (typeof window === 'undefined') return DEFAULT_SETTINGS;
+  return loadSettings();
+}
+
+export function useGameStats() {
+  const [stats, setStats] = useState<GameStats>(getInitialStats);
 
   const recordGame = useCallback((score: number, streak: number) => {
     setStats((prev) => {
@@ -43,11 +50,7 @@ export function useGameStats() {
 }
 
 export function usePersistedSettings() {
-  const [settings, setSettings] = useState<GameSettings | null>(null);
-
-  useEffect(() => {
-    setSettings(loadSettings());
-  }, []);
+  const [settings, setSettings] = useState<GameSettings>(getInitialSettings);
 
   const update = useCallback((next: GameSettings) => {
     setSettings(next);
