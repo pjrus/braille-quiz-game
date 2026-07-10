@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Braille Character Quiz',
   description:
     'Interactive web game for learning and practicing Braille characters — lowercase letters, capital letters, and numbers.',
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: (process.env.NODE_ENV ?? 'development') === 'production' ? '/braille-quiz-game/favicon.svg' : '/favicon.svg' },
 };
 
 export const viewport: Viewport = {
