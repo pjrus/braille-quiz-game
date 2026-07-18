@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
-const basePath = process.env.NODE_ENV === 'production' ? '/braille-quiz-game' : '';
+// GitHub Pages hosts project sites beneath the repository name.
+const basePath = process.env.GITHUB_PAGES === 'true' ? '/braille-quiz-game' : '';
 
 const nextConfig: NextConfig = {
   output: 'export',
