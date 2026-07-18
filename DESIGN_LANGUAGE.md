@@ -62,8 +62,8 @@ No `rgba`/`hsla` translucency for surfaces — use solid tokens instead.
 | `--text-tertiary`  | `#9A9AA2` | Muted helper text         |
 | `--text-inverse`   | `#0E0E12` | Text on accent fills      |
 
-> Use `color-scheme: light dark` on `:root` so native scrollbars,
-> `<select>` menus, and form controls render correctly per theme.
+> Use `color-scheme: light` by default and switch it to `dark` with the
+> `data-theme` attribute so native controls match the active theme.
 
 ### 2.3 Accent palettes (one active at a time)
 

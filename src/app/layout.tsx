@@ -28,10 +28,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0e0e12' },
-  ],
+  themeColor: '#ffffff',
 };
 
 export default function RootLayout({
@@ -40,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" data-accent="purple" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
+    <html lang="en" data-theme="light" data-accent="blue" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body>
         <TooltipProvider>
           <AppShell>{children}</AppShell>

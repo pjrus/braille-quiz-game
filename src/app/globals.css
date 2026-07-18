@@ -12,7 +12,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* Radii */
   --radius-1: 6px;
@@ -54,12 +54,12 @@
   --danger-border: #fca5a5;
   --warning: #b45309;
 
-  /* Accent (default purple) — see data-accent blocks below */
-  --accent: #7c3aed;
-  --accent-strong: #6d28d9;
+  /* Accent (default blue) — see data-accent blocks below */
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
   --accent-text: #ffffff;
-  --accent-surface: #ede9fe;
-  --accent-border: #c4b5fd;
+  --accent-surface: #dbeafe;
+  --accent-border: #93c5fd;
 
   /* shadcn/ui semantic aliases — derived from the tokens above so
      Tailwind components stay in sync with theme/accent switching. */
@@ -91,6 +91,7 @@
 }
 
 :root[data-theme='dark'] {
+  color-scheme: dark;
   --bg-page: #0e0e12;
   --bg-surface: #16161c;
   --bg-sunken: #1e1e26;

@@ -27,14 +27,12 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 function getPreferredTheme(): Theme {
   const saved = window.localStorage.getItem(THEME_KEY);
   if (saved === 'dark' || saved === 'light') return saved;
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  return 'light';
 }
 
 function getSavedAccent(): Accent {
   const saved = window.localStorage.getItem(ACCENT_KEY);
-  return ACCENTS.includes(saved as Accent) ? (saved as Accent) : 'purple';
+  return ACCENTS.includes(saved as Accent) ? (saved as Accent) : 'blue';
 }
 
 function applyToDocument(theme: Theme, accent: Accent) {
@@ -49,7 +47,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Matches the server-rendered defaults in layout.tsx; real values are
   // read from localStorage after mount to avoid a hydration mismatch.
   const [theme, setThemeState] = useState<Theme>('light');
-  const [accent, setAccentState] = useState<Accent>('purple');
+  const [accent, setAccentState] = useState<Accent>('blue');
 
   useEffect(() => {
     const nextTheme = getPreferredTheme();
