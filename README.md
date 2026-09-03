@@ -2,6 +2,8 @@
 
 An interactive web-based game for learning and practicing Braille characters. Test your knowledge of Braille letters, numbers, and symbols through an engaging multiple-choice quiz format.
 
+![Braille Character Quiz in progress](docs/images/quiz-in-progress.png)
+
 ![Next.js](https://img.shields.io/badge/Next.js-15-black.svg)
 ![React](https://img.shields.io/badge/React-19-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue.svg)
